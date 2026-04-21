@@ -17,3 +17,9 @@ def get_pinecone_index_name():
 
 def get_s3_bucket():
     return os.getenv("S3_BUCKET_NAME")
+
+def get_groq_api_key():
+    return os.getenv("GROQ_API_KEY")
+def get_groq_api_key():
+    return os.getenv("GROQ_API_KEY")
+

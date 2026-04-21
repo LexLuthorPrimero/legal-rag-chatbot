@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: legal-rag-chatbot
+Version: 0.1.0
+Summary: Chatbot legal con RAG (Leyes laborales argentinas)
+Author-email: Lucas <tuemail@ejemplo.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: langchain>=0.3.0
+Requires-Dist: langchain-community>=0.3.0
+Requires-Dist: langchain-text-splitters>=0.3.0
+Requires-Dist: openai>=1.0.0
+Requires-Dist: pinecone-client>=3.0.0
+Requires-Dist: boto3>=1.34.0
+Requires-Dist: streamlit>=1.35.0
+Requires-Dist: fastapi>=0.115.0
+Requires-Dist: uvicorn>=0.30.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pytest>=8.0.0
+Requires-Dist: ruff>=0.5.0
+Provides-Extra: dev
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+
+# Legal RAG Chatbot
+[![CI](https://github.com/LexLuthorPrimero/legal-rag-chatbot/actions/workflows/ci.yml/badge.svg)](https://github.com/LexLuthorPrimero/legal-rag-chatbot/actions/workflows/ci.yml)
+
+Asistente virtual para consultas sobre leyes laborales argentinas usando RAG (Recuperación + Generación).
+
+## Stack
+- Python 3.10+
+- LangChain, OpenAI
+- Pinecone (vector DB)
+- AWS S3 + Lambda + API Gateway
+- Streamlit
+- GitHub Actions CI/CD
+
+## Instalación
+...
