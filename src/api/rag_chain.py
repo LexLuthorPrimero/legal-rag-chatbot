@@ -7,7 +7,18 @@ from src.utils.logging import setup_logger
 logger = setup_logger(__name__)
 
 embedding_model = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
-groq_client = Groq(api_key=get_groq_api_key())
+
+_groq_client = None
+
+def get_groq_client():
+    global _groq_client
+    if _groq_client is None:
+        api_key = get_groq_api_key()
+        if not api_key:
+            logger.warning("GROQ_API_KEY no configurada. Usando respuestas simuladas.")
+            return None
+        _groq_client = Groq(api_key=api_key)
+    return _groq_client
 
 def get_pinecone_index():
     pc = pinecone.Pinecone(api_key=get_pinecone_api_key(), environment=get_pinecone_environment())
@@ -33,8 +44,11 @@ Contexto:
 Pregunta: {query}
 
 Respuesta:"""
+    client = get_groq_client()
+    if client is None:
+        return "[Respuesta simulada] Según la información disponible, la ley establece que..."
     try:
-        completion = groq_client.chat.completions.create(
+        completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.2,

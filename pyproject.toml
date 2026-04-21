@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "legal-rag-chatbot"
 version = "0.1.0"
-description = "Asistente legal argentino con RAG (Leyes laborales)"
+description = "Asistente legal argentino con RAG"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{name = "Lucas", email = "tuemail@ejemplo.com"}]
