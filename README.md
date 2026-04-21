@@ -1,4 +1,5 @@
 # Legal RAG Chatbot
+[![CI](https://github.com/LexLuthorPrimero/legal-rag-chatbot/actions/workflows/ci.yml/badge.svg)](https://github.com/LexLuthorPrimero/legal-rag-chatbot/actions/workflows/ci.yml)
 
 Asistente virtual para consultas sobre leyes laborales argentinas usando RAG (Recuperación + Generación).
 
