@@ -23,7 +23,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .
-        pip install pytest pytest-cov
+        pip install fastembed groq pinecone python-dotenv pytest pytest-cov
     - name: Test with pytest
       run: |
         pytest tests/ -v --cov=src --cov-report=xml
