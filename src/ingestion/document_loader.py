@@ -1,26 +1,57 @@
-import os
 from pathlib import Path
-from langchain_community.document_loaders import TextLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from src.utils.logging import setup_logger
 
 logger = setup_logger(__name__)
 
+
 def load_documents_from_dir(directory: str):
+    """Carga todos los archivos .txt de un directorio."""
     docs = []
     for file_path in Path(directory).glob("*.txt"):
         logger.info(f"Cargando {file_path}")
-        loader = TextLoader(str(file_path), encoding="utf-8")
-        docs.extend(loader.load())
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        # Simular estructura de documento con page_content y metadata
+        doc = type(
+            "Document",
+            (),
+            {"page_content": content, "metadata": {"source": str(file_path)}},
+        )()
+        docs.append(doc)
     logger.info(f"Se cargaron {len(docs)} documentos")
     return docs
 
+
 def chunk_documents(docs, chunk_size=1000, chunk_overlap=200):
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size,
-        chunk_overlap=chunk_overlap,
-        separators=["\n\n", "\n", " ", ""]
-    )
-    chunks = text_splitter.split_documents(docs)
+    """Divide documentos en fragmentos (chunks) de tamaño fijo sin LangChain."""
+    chunks = []
+    for doc in docs:
+        text = doc.page_content
+        # División simple por párrafos y luego por tamaño
+        paragraphs = text.split("\n\n")
+        current_chunk = ""
+        for para in paragraphs:
+            if len(current_chunk) + len(para) + 2 <= chunk_size:
+                if current_chunk:
+                    current_chunk += "\n\n"
+                current_chunk += para
+            else:
+                if current_chunk:
+                    chunks.append(
+                        type(
+                            "Document",
+                            (),
+                            {"page_content": current_chunk, "metadata": doc.metadata},
+                        )()
+                    )
+                current_chunk = para
+        if current_chunk:
+            chunks.append(
+                type(
+                    "Document",
+                    (),
+                    {"page_content": current_chunk, "metadata": doc.metadata},
+                )()
+            )
     logger.info(f"Se generaron {len(chunks)} chunks")
     return chunks
