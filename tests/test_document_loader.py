@@ -18,15 +18,14 @@ def test_load_documents_from_dir():
 
 def test_chunk_documents():
     with tempfile.TemporaryDirectory() as tmpdir:
-        # Crear un documento más largo para asegurar múltiples chunks
         file = Path(tmpdir) / "doc.txt"
-        # Repetir 200 veces para tener al menos 2000 caracteres
-        long_text = "Este es un texto largo. " * 200
+        # Crear un texto de 5000 caracteres 'a' (suficiente para múltiples chunks)
+        long_text = "a" * 5000
         file.write_text(long_text, encoding="utf-8")
         docs = load_documents_from_dir(tmpdir)
-        # Usar chunk_size pequeño para forzar división
+        # Forzar chunk_size pequeño para garantizar múltiples fragmentos
         chunks = chunk_documents(docs, chunk_size=100, chunk_overlap=20)
-        # Debe generar al menos 2 chunks (ya que el texto es largo)
-        assert len(chunks) > 1
-        # Verificar que cada chunk tenga contenido
+        assert (
+            len(chunks) > 1
+        ), f"Se esperaban más de 1 chunk, pero se obtuvieron {len(chunks)}"
         assert all(len(chunk.page_content) > 0 for chunk in chunks)
