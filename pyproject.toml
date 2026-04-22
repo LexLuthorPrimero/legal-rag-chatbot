@@ -26,3 +26,11 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["ruff", "mypy", "pre-commit"]
+
+[tool.coverage.run]
+omit = [
+    "src/frontend/*",
+    "scripts/*",
+    "tests/*",
+    "venv/*",
+]

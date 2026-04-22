@@ -18,6 +18,7 @@ Sistema de preguntas y respuestas sobre leyes laborales argentinas usando Retrie
 ## Demo
 
 ![Interfaz](images/abogado.png)
+[Ver demostración del chatbot funcionando](https://youtu.be/M4lLOUbNJiQ)
 
 ## Características
 
